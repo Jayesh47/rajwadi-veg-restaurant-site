@@ -2,26 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    margin: 0px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .success-img {
+    transition: all 0.5s ease-in-out;
+    animation: cool 2s linear alternate;
+  }
+  @keyframes cool {
+    0% {
+      rotate: 30deg;
+    }
+    25% {
+      rotate: 90deg;
+    }
+    50% {
+      rotate: 180deg;
+    }
+    75% {
+      rotate: 270deg;
+      scale: 75%;
+    }
+    100% {
+      scale: 110%;
+      rotate: 360deg;
+    }
+  }
+  .product-thumbnail {
+    box-shadow: 6px 6px 22px rgb(221, 196, 196), -6px -6px 22px rgb(214, 198, 198);
+  }
+  .offer {
+    border-bottom: 25px solid red;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    height: 0;
   }
 }

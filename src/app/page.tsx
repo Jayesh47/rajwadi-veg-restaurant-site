@@ -1,101 +1,95 @@
+'use client';
+import React, { Suspense } from 'react';
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Navbar from "./(customer)/page";
+import Footer from "./(customer)/header/footer";
+import api from "./api";
+import Carousel from "./carousel";
+import Loading from './loading';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [banners, setBanner] = useState<any[]>([]);
+  const [isUser, setUser] = useState(false);
+  const [service, setService] = useState({ thumbnail: "", description: "" });
+  const [history, setHistory] = useState({ thumbnail: "", description: "" });
+  const [loader, setLoader] = useState<boolean>(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleRegisterBtn = () => {
+    const _user = sessionStorage.getItem("userToken");
+    if (_user) {
+      setUser(true);
+    } else {
+      setUser(false);
+    }
+  }
+  const handleAllDetails = async () => {
+    const res = await api.get("/load-homepage");
+    const homepage = res.data;
+    if (homepage[0]["banner"] !== undefined || homepage[1]["banner"] !== undefined) {
+      setLoader(false);
+      setBanner(homepage[2]["banner"]);
+      setHistory({ thumbnail: homepage[0]["banner"], description: homepage[0]["description"] });
+      setService({ thumbnail: homepage[1]["banner"], description: homepage[1]["description"] });
+    }
+  }
+
+  useEffect(() => {
+    handleRegisterBtn();
+    handleAllDetails();
+  }, []);
+
+  return ([
+    <Navbar />,
+    (loader ? <Loading /> : [
+      <section>
+        <div className="h-screen relative">
+          <Carousel banner={banners} />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        <div className="absolute top-[15vh] flex flex-col text-center w-full h-[95%] justify-center items-center backdrop-brightness-50">
+          <h1 className="text-[56px] font-serif text-white">Best food for your taste</h1>
+          <h1 className="text-[24px] font-serif text-white">Discoverable delectable cuisine and unforgattable moments in our welcoming, culinary haven.</h1>
+        </div>
+        <main className="mainpage flex flex-col mt-8 bg-white">
+          <div className="flex flex-col items-center bg-orange-200 p-5 justify-center rounded-tr-full rounded-bl-full h-[45vh] w-[90%] m-auto">
+            <Image src={`/uploads/${history.thumbnail}`} alt="history" width={200} height={200} className="w-[180px] h-[180px] absolute mt-[-18em] left-[2em] rounded-full"></Image>
+            <h3 className="text-[40px] font-semibold">OUR HISTORY</h3>
+            <p className="text-center w-4/5 mt-6">{history.description}</p>
+            <Link href={"/about"} className="py-2 px-4 rounded font-semibold my-6 text-black bg-red-600 text-white shadow-lg shadow-rose-400 transition-all easy-in delay-150 hover:bg-red-700">Learn More</Link>
+          </div>
+
+          <div className="flex flex-col items-center bg-orange-200 p-5 justify-center rounded-tl-full rounded-br-full h-[45vh] w-[90%] mt-12 m-auto">
+            <Image src={`/uploads/${service.thumbnail}`} alt="history" width={200} height={200} className="w-[180px] h-[180px] absolute mt-[-18em] right-[1.8em] rounded-full"></Image>
+            <h3 className="text-[40px] font-semibold">OUR SERVICES</h3>
+            <p className="text-center w-4/5 mt-6">{service.description}</p>
+            <Link href={"/about"} className="py-2 px-4 rounded font-semibold my-6 text-black bg-red-600 text-white shadow-lg shadow-rose-400 transition-all easy-in delay-150 hover:bg-red-700">Learn More</Link>
+          </div>
+
+          <div className="flex mt-9 mb-9 justify-center">
+            <Image src={"/poster.jpg"} alt="..." width={1000} height={200} className="w-[80%] h-[60vh]"></Image>
+            <div className="absolute flex flex-col backdrop-brightness-[0.3] w-[80%] h-[60vh] justify-center items-center">
+              <h1 className="text-[3.6em] text-white">Need a Quality & Taste Improve?</h1>
+              <h3 className="text-[2em] text-white my-8">Choose Rajwadi Thal at Royal Rajwadi Resaurant.</h3>
+              {
+                isUser ? (
+                  <Link href={"/menu"} className="relative inline-block px-2 text-xl w-[16vw] text-center py-3 text-white uppercase text-sm tracking-wider font-semibold overflow-hidden transition-all duration-300 group">
+                    <span className="absolute inset-0 bg-violet-500 -z-10"></span>
+                    <span className="absolute inset-0 bg-rose-600 w-0 transition-all duration-300 group-hover:w-full -z-10"></span>
+                    Book Order
+                  </Link>
+                ) : (
+                  <Link href={"/register"} className="relative inline-block px-2 text-xl w-[16vw] text-center py-3 text-white uppercase text-sm tracking-wider font-semibold overflow-hidden transition-all duration-300 group">
+                    <span className="absolute inset-0 bg-violet-500 -z-10"></span>
+                    <span className="absolute inset-0 bg-rose-600 w-0 transition-all duration-300 group-hover:w-full -z-10"></span>
+                    Register Now
+                  </Link>
+                )
+              }
+            </div>
+          </div>
+        </main>
+      </section>]),
+    <Footer />
+  ]);
 }
