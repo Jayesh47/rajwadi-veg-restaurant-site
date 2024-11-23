@@ -59,7 +59,7 @@ export default function Register() {
     return (
         <div className="h-screen flex justify-center items-center bg-gray-100">
             <Toaster />
-            <form className="w-[50%] p-4 md:p-6 lg:p-12 bg-white rounded-lg shadow-2xl" method="post" onSubmit={handleSubmit}>
+            <form className="w-4/5 md:w-[50%] p-4 md:p-6 lg:p-12 bg-white rounded-lg shadow-2xl" method="post" onSubmit={handleSubmit}>
                 <h1 className="text-3xl font-bold mb-4">Register</h1>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">

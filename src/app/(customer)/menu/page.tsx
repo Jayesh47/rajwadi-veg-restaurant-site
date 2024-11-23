@@ -17,7 +17,7 @@ export default function Shop() {
     const _products = useMemo(() => Product, [Product]);
 
     return (
-        <section className="mainshop my-9 flex flex-col mx-8">
+        <section className="mainshop my-6 md:my-9 flex flex-col md:mx-8">
             <div className="flex relative">
                 <Image src={'/menu.avif'} alt="menu image" width={600} height={500} className="w-full h-[40vh]"></Image>
                 <div className="flex justify-center bg-black bg-opacity-40 items-center w-full h-[40vh] absolute font-semibold text-white">
@@ -25,48 +25,58 @@ export default function Shop() {
                 </div>
             </div>
             <div className="mt-8 font-semibold col-span-1">
-                <ul className="border-b border-black grid grid-cols-6 pb-2">
-                    <li className="cursor-pointer text-center">Royal Rajasthani</li>
-                    <li className="cursor-pointer text-center">Punjabi</li>
-                    <li className="cursor-pointer text-center">Gujrati</li>
-                    <li className="cursor-pointer text-center">South Indian</li>
-                    <li className="cursor-pointer text-center">Chineese</li>
-                    <li className="cursor-pointer text-center">Italian</li>
+                <ul className="hidden md:flex md:flex-wrap flex-col md:flex-row justify-between pb-2">
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">Royal Rajasthani</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Laal Maas</span>
+                            <span>Ker Sangri</span>
+                            <span>Dal-Bati Churma With Buttermilk</span>
+                        </div>
+                    </li>
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">Punjabi</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Aloo Paratha</span>
+                            <span>Chole Bhature</span>
+                            <span>Paneer Butter Masala</span>
+                        </div>
+                    </li>
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">Gujrati</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Dhokla</span>
+                            <span>Thepla</span>
+                            <span>Fafda & Jalebi</span>
+                        </div>
+                    </li>
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">South Indian</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Idli</span>
+                            <span>Uttapam</span>
+                            <span>Masala Dosa</span>
+                        </div>
+                    </li>
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">Chineese</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Paneer Chili</span>
+                            <span>Hakka Noodles</span>
+                            <span>Vegetable Manchurian</span>
+                        </div>
+                    </li>
+                    <li className="cursor-pointer text-center mb-5 md:mb-0">
+                        <span className="text-xl font-bold">Italian</span>
+                        <div className="grid grid-rows-3 gap-y-4 mt-5">
+                            <span>Bruschetta</span>
+                            <span>Pasta Primavera</span>
+                            <span>Margherita Pizza</span>
+                        </div>
+                    </li>
                 </ul>
-                <div className="grid grid-cols-6 mt-3 text-center">
-                    <div className="grid grid-rows-3">
-                        <span>Ker Sangri</span>
-                        <span>Laal Maas</span>
-                        <span>Dal-Bati Churma With Buttermilk</span>
-                    </div>
-                    <div className="grid grid-rows-3">
-                        <span>Paneer Butter Masala</span>
-                        <span>Chole Bhature</span>
-                        <span>Aloo Paratha</span>
-                    </div>
-                    <div className="grid grid-rows-3">
-                        <span>Dhokla</span>
-                        <span>Thepla</span>
-                        <span>Fafda & Jalebi</span>
-                    </div>
-                    <div className="grid grid-rows-3">
-                        <span>Masala Dosa</span>
-                        <span>Idli</span>
-                        <span>Uttapam</span>
-                    </div>
-                    <div className="grid grid-rows-3">
-                        <span>Vegetable Manchurian</span>
-                        <span>Hakka Noodles</span>
-                        <span>Paneer Chili</span>
-                    </div>
-                    <div className="grid grid-rows-3">
-                        <span>Margherita Pizza</span>
-                        <span>Pasta Primavera</span>
-                        <span>Bruschetta</span>
-                    </div>
-                </div>
             </div>
-            <div className="flex my-6 relative overflow-x-auto no-scrollbar text-center font-semibold h-[25vh] py-6 justify-around">
+            <div className="grid grid-cols-9 gap-x-28 ml-4 md:ml-0 overflow-x-scroll h-44 pt-6 no-scroll my-12">
                 {
                     category.map((_val, i) => (
                         <RecentCard thumbnail={_val} key={i} />

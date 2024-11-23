@@ -50,18 +50,18 @@ export default function Reservation() {
     return (
         <section className="reservation m-9">
             <Toaster />
-            <div className="flex mx-9 my-9">
-                <div className="header flex flex-col w-3/5 justify-evenly items-center mr-[-5em] ml-[5em]">
+            <div className="flex flex-col-reverse md:flex-row mx-2 md:mx-9 my-9">
+                <div className="header flex flex-col md:w-3/5 justify-evenly items-center mt-4 md:mt-0 md:mr-[-5em] md:ml-[5em]">
                     <h2 className="font-serif italic font-[600] text-[20px] text-slate-500">Make A Reservation</h2>
-                    <h2 className="font-sans font-[800] text-[30px]">Private Dining & Events</h2>
+                    <h2 className="font-sans font-[800] text-[30px] text-center md:text-right">Private Dining & Events</h2>
                     <p className="font-sans font-[600] text-[16px] text-center">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus minima voluptates harum iste eligendi quae, nesciunt reiciendis quisquam amet doloremque tempora suscipit consectetur distinctio consequuntur fugiat, explicabo at sint ipsum!
                     </p>
                     <span className="font-[700]">Reserved By Phone</span>
                     <span className="font-mono text-red-500 font-[600] text-[26px]">+91 12345 67890</span>
                 </div>
-                <div className="banner ml-[10em] w-[40%]">
-                    <div className="banner bg-black p-4 flex flex-col w-[70%] h-[50vh]">
+                <div className="banner ml-0 md:ml-[10em] w-full md:w-[40%]">
+                    <div className="banner bg-black p-4 flex flex-col w-full md:w-[70%] h-[50vh]">
                         <div className="frame flex flex-col items-center text-white border-2 border-white h-[100%] p-5 border-dashed">
                             <img src="/opentiming.png" alt="open time" width={200} height={200} />
                             <hr className="w-2/5 border-2" />
@@ -78,11 +78,11 @@ export default function Reservation() {
             <hr className="border-slate-400 w-4/5 m-auto" />
             <div className="flex flex-col items-center my-9 py-4">
                 <h2 className="font-serif italic text-[20px] text-slate-500">Online Reservation</h2>
-                <h2 className="font-sans font-[800] text-[30px]">No Need To Wait For Table</h2>
+                <h2 className="font-sans font-[800] text-[30px] text-center md:text-right">No Need To Wait For Table</h2>
                 <span className="font-[950] text-slate-500">~~~~~~~~~</span>
             </div>
 
-            <form method="post" className="grid grid-cols-3 grid-rows-3 font-[600] gap-4 w-4/5 font-sans h-[50vh] m-auto" onSubmit={handleSubmit}>
+            <form method="post" className="grid md:grid-cols-3 grid-rows-3 font-[600] gap-y-[3em] gap-4 w-full md:w-4/5 font-sans md:h-[50vh] m-auto" onSubmit={handleSubmit}>
                 <label htmlFor="time-of-book">
                     <span className="text-slate-400 font-bold">Date & Time -</span>
                     <input type="datetime" name="resvTime" id="time-of-book" className="text-md w-full border-b-2 border-black outline-none hover:border-[#c59d5f]" placeholder="your preferred Time: (dd/mm/yyyy hh:mm PM/AM)" onChange={(e) => setTime(e.target.value)} required />

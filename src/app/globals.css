@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
+  .no-scroll::-webkit-scrollbar {
     margin: 0px;
   }
 }
@@ -11,6 +11,9 @@
 * {
   margin: 0;
   padding: 0;
+}
+body{
+  overflow-x: hidden;
 }
 
 @layer utilities {
@@ -44,6 +47,7 @@
     border-bottom: 25px solid red;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    height: 0;
+    height: 0px;
   }
 }
+/* HOME PAGE RESPONSIVE */

@@ -31,15 +31,11 @@ export default function Carousel({ banner }: { banner: any }) {
                 .slide:nth-child(4) { background-image: url('/uploads/${banner[3]}'); animation-delay: 9s; }
             `}</style>
             <div>
-                <div className="slide"></div>
-                <div className="slide"></div>
-                <div className="slide"></div>
-                <div className="slide"></div>
+                <div className="slide" key={1}></div>
+                <div className="slide" key={2}></div>
+                <div className="slide" key={3}></div>
+                <div className="slide" key={4}></div>
             </div>
         </section>
     )
 }
-// .slide:nth-child(1) { background-image: url('/poster.jpg'); animation-delay: 0s; }
-// .slide:nth-child(2) { background-image: url('/poster1.jpg'); animation-delay: 3s; }
-// .slide:nth-child(3) { background-image: url('/poster-6.jpg'); animation-delay: 6s; }
-// .slide:nth-child(4) { background-image: url('/poster-4.jpg'); animation-delay: 9s; }

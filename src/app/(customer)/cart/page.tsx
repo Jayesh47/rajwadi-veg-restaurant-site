@@ -103,17 +103,18 @@ export default function Cart() {
 
 
     return (
-        <section className="cart p-6 flex justify-between bg-zinc-100">
+        <section className="cart p-6 flex flex-col md:flex-row justify-between bg-zinc-100">
             <Toaster />
             {
                 isAuth ? [
-                    <div className="flex flex-col w-3/4">
+                    <div className="flex flex-col flex-wrap md:flex-nowrap w-3/4">
                         {data.map((item, i) => (
-                            <div key={i} className="grid grid-cols-[18%_40%_10%_20%_10%] mb-3 bg-white h-[20vh] items-center p-4 shadow-lg">
-                                <Image src={item["_prodImg"]} alt={item["_prodName"]} width={100} height={100} className="w-[140px] h-[100px]" />
-                                <div className="w-[14rem] mr-32">
+                            <div key={i} className="flex flex-col md:grid md:grid-cols-[18%_40%_10%_20%_10%] mb-3 bg-white md:h-[20vh] items-center p-4 shadow-lg">
+                                {/* <Image src={item["_prodImg"]} alt={item["_prodName"]} width={100} height={100} className="w-[140px] h-[100px]" /> */}
+                                <Image src={"/dosa.jpg"} alt={item["_prodName"]} width={100} height={100} className="w-[180px] h-[26vh] rounded-full md:rounded-none product-thumbnail md:w-[140px] md:h-[100px]" />
+                                <div className="w-[18em] md:w-[14rem] text-center md:text-right md:mr-32 mt-5 md:mt-0">
                                     <h1 className="text-2xl font-semibold">{item["_prodName"]}</h1>
-                                    <h1 className="text-xl">₹{item["_prodPrice"]}</h1>
+                                    <h1 className="text-xl font-semibold">₹{item["_prodPrice"]}</h1>
                                 </div>
                                 <div>
                                     <span className="flex items-end justify-end">
@@ -126,11 +127,11 @@ export default function Cart() {
                                         </button>
                                     </span>
                                 </div>
-                                <div className="flex justify-center font-semibold">
+                                <div className="flex border-2 border-black md:border-none px-4 md:px-0 md:justify-center text-xl font-semibold">
                                     ₹{item["_prodPrice"] * qty[i]}
                                 </div>
                                 <div className="grid items-end">
-                                    <button className="text-red-600" onClick={() => handleDelete(item["_prodId"])}>
+                                    <button className="text-red-600 text-xl" onClick={() => handleDelete(item["_prodId"])}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </div>
