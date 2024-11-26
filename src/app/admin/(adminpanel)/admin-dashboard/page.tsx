@@ -1,6 +1,6 @@
 'use client'
 import api from "@/app/api";
-import React, {useEffect, useState, useMemo} from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import BottomDashboard from './bottomDashboard';
 
 export default function AdminDashboard() {
@@ -10,10 +10,11 @@ export default function AdminDashboard() {
         totalSales: "",
         totalEmp: ""
     });
+
     const handleAdminDashboard = async () => {
         const token = sessionStorage.getItem('adminToken');
         if (token) {
-            const res = await api.get("/admin-dashboard", {headers: {'Authorization': `Bearer ${token}`}});
+            const res = await api.get("/admin-dashboard", { headers: { 'Authorization': `Bearer ${token}` } });
             const _res = res.data;
             if (_res) {
                 setContent({
@@ -27,7 +28,6 @@ export default function AdminDashboard() {
     }
     useEffect(() => {
         handleAdminDashboard();
-        console.log(Content)
     }, []);
     const customerDetails = useMemo(() => {
         const total = Number(Content.totalUsers);
