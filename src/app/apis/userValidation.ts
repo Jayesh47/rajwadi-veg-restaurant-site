@@ -1,5 +1,5 @@
 import { hash, genSalt, compare } from 'bcrypt';
-import { Users } from "@/app/apis/lib/users";
+import Users from "@/app/apis/lib/users";
 import { sign, verify } from 'jsonwebtoken';
 
 export const encryptPassword = async (password: string) => {

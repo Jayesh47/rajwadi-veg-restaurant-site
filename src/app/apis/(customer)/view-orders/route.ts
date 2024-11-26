@@ -10,7 +10,6 @@ export async function GET(req: NextRequest) {
             const userId = verifyToken(userToken) as JwtPayload;
             if (userId["userId"]) {
                 const _orders = await Order.find({customerId: userId["userId"].toString()});
-                console.log(_orders);
                 return NextResponse.json({message: "success", userOrders: _orders}, {status: 200});
             }
         }else {

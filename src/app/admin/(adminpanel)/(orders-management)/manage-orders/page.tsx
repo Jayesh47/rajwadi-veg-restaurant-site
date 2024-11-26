@@ -1,54 +1,51 @@
-'use client'
-import React, { useState } from "react";
+'use client';
+import React, { useState, useEffect } from 'react';
+import api from '@/app/api';
+import OrderBtn from './orderStatus';
+import {Toaster} from 'react-hot-toast';
+import { faRefresh } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useRouter} from 'next/navigation';
+
 interface Order {
-    id: number;
-    customer: string;
-    items: string;
-    status: 'Pending' | 'Completed' | 'Cancelled';
-    total: string;
+    orderId: string;
+    customerId: string;
+    customerOrder: string[]; 
+    status: string;
+    totalPays: number;
     date: string;
 }
 
 export default function ManageOrders() {
-    const [showModal, setShowModal] = useState(false);
+    const [orders, setOrders] = useState<Order[]>([]);
+    const route = useRouter();
 
-    const orders = [
-        {
-            id: 1,
-            customer: "John Doe",
-            items: "Veg Pizza, Garlic Bread",
-            status: "Pending",
-            total: "₹600",
-            date: "2024-10-01",
-        },
-        {
-            id: 2,
-            customer: "Jane Smith",
-            items: "Pasta, Salad",
-            status: "Completed",
-            total: "₹450",
-            date: "2024-10-02",
-        },
-        {
-            id: 3,
-            customer: "Mike Tyson",
-            items: "Burger, Fries, Soda",
-            status: "Cancelled",
-            total: "₹300",
-            date: "2024-10-03",
-        },
-    ];
+    const handleOrders = () => {
+        api.get('/view-customer-orders')
+            .then((res) => {
+                const _res = res.data;
+                setOrders(_res.message);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        handleOrders();
+    }, []);
+
     return (
         <main className="p-6 min-h-screen">
+            <Toaster />
             <h1 className="text-3xl font-bold mb-6 text-white">Manage Orders</h1>
 
-            {/* Orders Table */}
+            <button onClick={() => route.refresh()} className="text-white"><FontAwesomeIcon icon={faRefresh} /></button>
+
             <div className="bg-white shadow-lg rounded-lg overflow-hidden">
                 <table className="min-w-full table-auto">
                     <thead className="bg-gray-200">
                         <tr>
                             <th className="px-4 py-2">Order ID</th>
-                            <th className="px-4 py-2">Customer</th>
+                            <th className="px-4 py-2">Customer ID</th>
                             <th className="px-4 py-2">Items</th>
                             <th className="px-4 py-2">Status</th>
                             <th className="px-4 py-2">Total</th>
@@ -58,29 +55,31 @@ export default function ManageOrders() {
                     </thead>
                     <tbody>
                         {orders.map((order) => (
-                            <tr key={order.id} className="border-b text-center">
-                                <td className="px-4 py-2">{order.id}</td>
-                                <td className="px-4 py-2">{order.customer}</td>
-                                <td className="px-4 py-2">{order.items}</td>
+                            <tr key={order.orderId} className="border-b text-center">
+                                <td className="px-4 py-2 max-w-40 no-scroll overflow-x-auto">{order.orderId}</td>
+                                <td className="px-4 py-2 max-w-40 no-scroll overflow-x-auto">{order.customerId}</td>
+                                <td className="px-4 py-2 max-h-24 flex overflow-y-auto">
+                                    {Array.isArray(order.customerOrder)
+                                        ? order.customerOrder.join(', ')
+                                        : 'No items'}
+                                </td>
                                 <td className="px-4 py-2">
                                     <span
-                                        className={`px-3 py-1 rounded-lg text-sm font-semibold ${order.status === "Pending"
-                                            ? "bg-yellow-300 text-yellow-900"
-                                            : order.status === "Completed"
-                                                ? "bg-green-300 text-green-900"
-                                                : "bg-red-300 text-red-900"
-                                            }`}
+                                        className={`text-lg rounded-lg font-semibold ${
+                                            order.status === 'pending'
+                                                ? 'text-blue-600'
+                                                : order.status === 'completed'
+                                                ? 'text-green-500'
+                                                : 'bg-red-300 text-red-900'
+                                        }`}
                                     >
                                         {order.status}
                                     </span>
                                 </td>
-                                <td className="px-4 py-2">{order.total}</td>
-                                <td className="px-4 py-2">{order.date}</td>
+                                <td className="px-4 py-2">{order.totalPays}</td>
+                                <td className="px-4 py-2">{formatDateTime(order.date)}</td>
                                 <td className="px-4 py-2">
-                                    <button className="text-blue-600 hover:underline mr-3">
-                                        Edit
-                                    </button>
-                                    <button className="text-red-600 hover:underline">Delete</button>
+                                    <OrderBtn _customerId={order.customerId} />
                                 </td>
                             </tr>
                         ))}
@@ -89,4 +88,24 @@ export default function ManageOrders() {
             </div>
         </main>
     );
+}
+
+function formatDateTime(dateString: string) {
+    const date = new Date(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'short',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+    };
+
+    const formattedDateTime = date
+        .toLocaleString('en-GB', options)
+        .replace(',', ''); 
+
+    return formattedDateTime;
 }

@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server';
 import { verifyToken, encryptPassword } from '../../userValidation';
-import { Users } from '@/app/apis/lib/users';
+import Users from '@/app/apis/lib/users';
 import ModelConnection from '../../lib/connection';
 
 

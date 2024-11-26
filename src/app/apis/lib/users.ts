@@ -13,4 +13,5 @@ const UserSchema = new mongoose.Schema({
     createdAt: {type: String, default: datetime.toLocaleString()},
     updatedAt: {type: String, default: datetime.toLocaleString()}
 });
-export const Users = mongoose.models.users || mongoose.model('users', UserSchema);
+const Users = mongoose.models.users || mongoose.model('users', UserSchema);
+export default Users;

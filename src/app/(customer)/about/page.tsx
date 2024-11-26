@@ -36,14 +36,14 @@ export default function About() {
                 </div>
                 <div className="flex flex-wrap justify-center mb-12">
                     <div className="w-full md:w-1/2 lg:w-1/3 mb-4 md:mr-16">
-                        <img src={"/cheff.avif"} width={200} height={200} alt="cheff" className="md:h-[28vh] w-full md:w-3/5 h-[50vh] rounded-none md:rounded-full" />
+                        <img src={"/cheff.avif"} width={200} height={200} alt="cheff" className="md:h-[28vh] w-full md:w-3/5 h-[50vh]" />
                         <h3 className="text-xl font-bold mb-2">Our Chef</h3>
                         <p className="text-lg mb-6">
                             Meet our head chef, Lakshyraj bhaiya, who brings over 10 years of experience in Indian cuisine to our kitchen. With a passion for innovation and tradition, Chef Lakshyraj bhaiya crafts dishes that delight the senses.
                         </p>
                     </div>
                     <div className="w-full md:w-1/2 lg:w-1/3 mb-4">
-                        <img src={"/team.jpg"} width={200} height={200} alt="cheff" className="md:h-[28vh] md:w-3/5 w-full md:w-fit rounded-none md:rounded-full" />
+                        <img src={"/team.jpg"} width={200} height={200} alt="cheff" className="md:h-[28vh] md:w-3/5 w-full md:w-fit" />
                         <h3 className="text-xl font-bold mb-2">Our Team</h3>
                         <p className="text-lg mb-6">
                             Our team is dedicated to providing exceptional service, ensuring every guest feels welcome and cared for. From our friendly servers to our skilled kitchen staff, we're a family dedicated to serving you.

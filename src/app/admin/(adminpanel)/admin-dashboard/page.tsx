@@ -1,10 +1,14 @@
 'use client'
 import api from "@/app/api";
 import React, {useEffect, useState, useMemo} from "react";
+import BottomDashboard from './bottomDashboard';
 
 export default function AdminDashboard() {
     const [Content, setContent] = useState({
         totalUsers: "",
+        totalOrders: "",
+        totalSales: "",
+        totalEmp: ""
     });
     const handleAdminDashboard = async () => {
         const token = sessionStorage.getItem('adminToken');
@@ -13,13 +17,17 @@ export default function AdminDashboard() {
             const _res = res.data;
             if (_res) {
                 setContent({
-                    totalUsers: _res["totalUsers"]
+                    totalUsers: _res["totalUsers"],
+                    totalOrders: _res["totalOrders"],
+                    totalSales: _res["totalSales"],
+                    totalEmp: _res["totalEmployee"]
                 });
             }
         }
     }
     useEffect(() => {
         handleAdminDashboard();
+        console.log(Content)
     }, []);
     const customerDetails = useMemo(() => {
         const total = Number(Content.totalUsers);
@@ -37,57 +45,20 @@ export default function AdminDashboard() {
 
                 <div className="bg-white shadow-lg shadow-gray-600 rounded-lg p-4">
                     <h3 className="font-semibold text-lg">Active Orders</h3>
-                    <p className="text-2xl font-bold">567</p>
+                    <p className="text-2xl font-bold">{Content["totalOrders"]}</p>
                 </div>
 
                 <div className="bg-white shadow-lg shadow-gray-600 rounded-lg p-4">
                     <h3 className="font-semibold text-lg">Total Sales</h3>
-                    <p className="text-2xl font-bold">₹1,23,456</p>
+                    <p className="text-2xl font-bold">₹{Content["totalSales"]}</p>
                 </div>
 
                 <div className="bg-white shadow-lg shadow-gray-600 rounded-lg p-4">
-                    <h3 className="font-semibold text-lg">Feedback</h3>
-                    <p className="text-2xl font-bold">89</p>
+                    <h3 className="font-semibold text-lg">Total Employees</h3>
+                    <p className="text-2xl font-bold">{Content["totalEmp"]}</p>
                 </div>
             </section>
-
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-white shadow-lg shadow-gray-600 rounded-lg p-6">
-                    <h3 className="font-semibold text-xl mb-4">Recent Orders</h3>
-                    <ul className="space-y-3">
-                        <li className="flex justify-between">
-                            <span>Order #1234</span>
-                            <span className="text-green-500">Completed</span>
-                        </li>
-                        <li className="flex justify-between">
-                            <span>Order #5678</span>
-                            <span className="text-yellow-500">Pending</span>
-                        </li>
-                        <li className="flex justify-between">
-                            <span>Order #91011</span>
-                            <span className="text-red-500">Cancelled</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div className="bg-white shadow-lg shadow-gray-600 rounded-lg p-6">
-                    <h3 className="font-semibold  text-xl mb-4">Recent Reservations</h3>
-                    <ul className="space-y-3">
-                        <li>
-                            <span className="block">jayesh - Booked Dining Table</span>
-                            <span className="text-sm text-gray-500">2 hours ago</span>
-                        </li>
-                        <li>
-                            <span className="block">User Jane Doe placed an order</span>
-                            <span className="text-sm text-gray-500">5 hours ago</span>
-                        </li>
-                        <li>
-                            <span className="block">User Sam Smith updated profile</span>
-                            <span className="text-sm text-gray-500">1 day ago</span>
-                        </li>
-                    </ul>
-                </div>
-            </section>
+            <BottomDashboard />
         </main>
     )
 }

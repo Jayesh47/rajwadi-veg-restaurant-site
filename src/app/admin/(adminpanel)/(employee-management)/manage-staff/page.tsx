@@ -1,10 +1,25 @@
-import React from "react";
+'use client';
+import React, { useEffect, useState } from "react";
 import AddNewEmployee from "./add-employee";
+import api from '@/app/api';
+import EditButton from './edit-employee';
+import RemoveBtn from './remove-employee';
+import {Toaster} from 'react-hot-toast';
 
 export default function ViewEmployees() {
-
+    const [empData, setData] = useState([]);
+    const viewEmployees = () => {
+        api.get("/view-employees").then((res) => {
+            const _res = res.data;
+            setData(_res["message"]);
+        }).catch(err => console.log(err));
+    }
+    useEffect(() => {
+        viewEmployees();
+    }, []);
     return (
         <main className="p-6 min-h-screen">
+            <Toaster />
             <h1 className="text-3xl font-bold mb-6 text-gray-100">Staff Management</h1>
             <AddNewEmployee />
 
@@ -21,28 +36,21 @@ export default function ViewEmployees() {
                         </tr>
                     </thead>
                     <tbody className="text-center">
-                        <tr className="border-b">
-                            <td className="px-4 py-2 font-bold">1</td>
-                            <td className="px-4 py-2">John Doe</td>
-                            <td className="px-4 py-2">Chef</td>
-                            <td className="px-4 py-2">john@example.com</td>
-                            <td className="px-4 py-2">25000</td>
-                            <td className="px-4 py-2">
-                                <button className="text-blue-600 hover:underline mr-3">Edit</button>
-                                <button className="text-red-600 hover:underline">Delete</button>
-                            </td>
-                        </tr>
-                        <tr className="border-b">
-                            <td className="px-4 py-2 font-bold">2</td>
-                            <td className="px-4 py-2">Jane Smith</td>
-                            <td className="px-4 py-2">Waiter</td>
-                            <td className="px-4 py-2">jane@example.com</td>
-                            <td className="px-4 py-2">25000</td>
-                            <td className="px-4 py-2">
-                                <button className="text-blue-600 hover:underline mr-3">Edit</button>
-                                <button className="text-red-600 hover:underline">Delete</button>
-                            </td>
-                        </tr>
+                        {
+                            empData.map((emp) => (
+                                <tr className="border-b">
+                                    <td className="px-4 py-2 font-bold">{emp["_id"]}</td>
+                                    <td className="px-4 py-2">{emp["employeeName"]}</td>
+                                    <td className="px-4 py-2">{emp["employeeRole"]}</td>
+                                    <td className="px-4 py-2">{emp["employeeEmail"]}</td>
+                                    <td className="px-4 py-2">{emp["employeeSalary"]}</td>
+                                    <td className="px-4 py-2">
+                                        <EditButton employeeId={emp["_id"]} />
+                                        <RemoveBtn employeeId={emp["_id"]} />
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>

@@ -28,7 +28,7 @@ export default function Navbar() {
                 </Link>
                 {/* Menu */}
                 <ul
-                    className={`fixed text-2xl md:text-base top-24 md:top-0 right-0 h-screen bg-white/90 shadow-lg z-20 w-full md:relative md:w-2/5 justify-end md:bg-transparent md:shadow-none md:flex items-center space-y-12 md:space-y-0 md:space-x-4 p-6 md:p-0 transition-transform delay-150 duration-300 transform ${showLinks ? "translate-x-0" : "translate-x-full"
+                    className={`fixed text-2xl md:text-base top-24 md:top-0 right-0 md:h-fit h-screen bg-white/90 shadow-lg z-20 w-full md:relative md:w-2/5 justify-end md:bg-transparent md:shadow-none md:flex items-center space-y-8 md:space-y-0 md:space-x-4 p-6 md:p-0 transition-transform delay-150 duration-300 transform ${showLinks ? "translate-x-0" : "translate-x-full"
                         } md:translate-x-0`}
                 >
                     <li className="relative group text-center">
@@ -67,9 +67,14 @@ export default function Navbar() {
                     {isLogin ? (
                         <>
                             <li className="relative group font-semibold text-center">
-                                <Link href="/my-orders" className="text-gray-600 pb-4 hover:border-b-4 hover:text-gray-300">
+                                <input type="checkbox" id="toggle-profile-menu" className="peer hidden" />
+                                <label htmlFor="toggle-profile-menu" className="text-gray-600 pb-4 hover:border-b-4 hover:text-gray-300">
                                     Profile
-                                </Link>
+                                </label>
+                                <ul className="relative mt-3 grid grid-rows-2 gap-y-4 md:absolute bg-white max-h-0 w-full md:w-[10em] px-2 overflow-hidden transition-max-height duration-500 ease-in-out peer-checked:max-h-40">
+                                    <li className="mt-3"><Link href={"/my-orders"} className="text-center md:text-left py-3 hover:text-gray-300">My Orders</Link></li>
+                                    <li className="mb-3"><Link href={"/my-reservations"} className="text-center md:text-left py-3 hover:text-gray-300">My Reservations</Link></li>
+                                </ul>
                             </li>
                             <li className="font-semibold text-center">
                                 <Link

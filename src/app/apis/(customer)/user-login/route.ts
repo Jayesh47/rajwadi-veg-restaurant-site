@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkPassword, tokenGenerate, userExists } from "../../userValidation";
-import { Users } from "@/app/apis/lib/users";
+import Users from "@/app/apis/lib/users";
 import ModelConnection from "@/app/apis/lib/connection";
 
 export async function POST(req :NextRequest) {

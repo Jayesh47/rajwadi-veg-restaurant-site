@@ -5,6 +5,8 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { Suspense } from "react";
 import Loading from './loading';
+
+
 config.autoAddCss = false;
 
 const geistSans = localFont({

@@ -28,14 +28,14 @@ export default function UserReservation() {
                 {
                     totalReservation.length > 0 ? (
                         totalReservation.map((_data) => (
-                            <div className="flex flex-col p-3 shadow-lg w-fit h-fit m-8 leading-8 transtion delay-150 duration-300 easy-in-out hover:-translate-y-1 hover:scale-110" key={_data["_id"]}>
+                            <div className="flex flex-col p-3 shadow-xl w-fit h-fit mx-4 my-8 md:m-8 leading-8 transtion delay-150 duration-300 easy-in-out hover:-translate-y-1 md:hover:scale-110" key={_data["_id"]}>
                                 <div className="flex justify-between items-center">
                                     <h3 className='font-bold text-2xl mb-3'>{_data["customerName"]}</h3>
                                     <h3 className='font-semibold text-red-600'>Status: {_data["confirmStatus"]}</h3>
                                 </div>
                                 <hr />
                                 <div className="grid grid-cols-2 grid-rows-5 items-center">
-                                    <span className='font-semibold text-gray-400'>Booking Id: </span> <span className='font-semibold text-gray-400'>{_data["_id"]}</span>
+                                    <span className='font-semibold text-gray-400'>Booking Id: </span> <span className='font-semibold text-gray-400 overflow-auto '>{_data["_id"]}</span>
                                     <span className='font-semibold text-gray-400'>Reservation Time: </span> <span className='font-semibold text-gray-400'>{_data["reservationTime"]}</span>
                                     <span className='font-semibold text-gray-400'>Reservation Type: </span> <span className='font-semibold text-gray-400'>{_data["reservationType"]}</span>
                                     <span className='font-semibold text-gray-400'>Phone Number: </span> <span className='font-semibold text-gray-400'>{_data["customerPhone"]}</span>

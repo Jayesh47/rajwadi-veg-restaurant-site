@@ -110,8 +110,7 @@ export default function Cart() {
                     <div className="flex flex-col flex-wrap md:flex-nowrap w-3/4">
                         {data.map((item, i) => (
                             <div key={i} className="flex flex-col md:grid md:grid-cols-[18%_40%_10%_20%_10%] mb-3 bg-white md:h-[20vh] items-center p-4 shadow-lg">
-                                {/* <Image src={item["_prodImg"]} alt={item["_prodName"]} width={100} height={100} className="w-[140px] h-[100px]" /> */}
-                                <Image src={"/dosa.jpg"} alt={item["_prodName"]} width={100} height={100} className="w-[180px] h-[26vh] rounded-full md:rounded-none product-thumbnail md:w-[140px] md:h-[100px]" />
+                                <Image src={item["_prodImg"]} alt={item["_prodName"]} width={100} height={100} className="w-[180px] h-[26vh] rounded-full md:rounded-none product-thumbnail md:w-[140px] md:h-[100px]" />
                                 <div className="w-[18em] md:w-[14rem] text-center md:text-right md:mr-32 mt-5 md:mt-0">
                                     <h1 className="text-2xl font-semibold">{item["_prodName"]}</h1>
                                     <h1 className="text-xl font-semibold">₹{item["_prodPrice"]}</h1>
