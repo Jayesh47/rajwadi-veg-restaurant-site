@@ -38,7 +38,7 @@ export default function ViewEmployees() {
                     <tbody className="text-center">
                         {
                             empData.map((emp) => (
-                                <tr className="border-b">
+                                <tr className="border-b" key={emp["_id"]}>
                                     <td className="px-4 py-2 font-bold">{emp["_id"]}</td>
                                     <td className="px-4 py-2">{emp["employeeName"]}</td>
                                     <td className="px-4 py-2">{emp["employeeRole"]}</td>

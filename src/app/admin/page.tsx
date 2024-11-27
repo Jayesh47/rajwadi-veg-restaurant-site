@@ -9,11 +9,6 @@ export default function Admin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
-    const [alert, setAlert] = useState({
-        title: "",
-        msg: "",
-        show: false
-    });
     const routes = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,12 +19,15 @@ export default function Admin() {
         formData.append('password', password);
         formData.append('role', role);
         try {
-
             const res = await api.post('/admin-login', formData);
             const _res = res.data;
             if (_res["message"] === "success") {
                 sessionStorage.setItem("adminToken", _res["adminToken"]);
-                routes.push("/admin/admin-dashboard");
+                if (role === "admin") {
+                    routes.push("/admin/admin-dashboard");
+                }else {
+                    routes.push("/admin/staff-attaindance");
+                }
             } else if (_res["message"] === "invalid password") {
                 toast.error("Incorrect Password, try again.");
             } else if (_res["message"] === "invalid email" && res.status === 401) {
@@ -73,7 +71,7 @@ export default function Admin() {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="mb-4">
+                {(role === "admin" || role === "") && <div className="mb-4">
                     <label className="block text-sm font-medium mb-2" htmlFor="password">
                         Password
                     </label>
@@ -85,15 +83,19 @@ export default function Admin() {
                         placeholder="Enter your password"
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                     />
-                </div>
+                </div>}
                 <div className="mb-4">
                     <span className="flex items-center">
                         <input type="radio" name="role" value={"admin"} id="admin" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRole(e.target.value)} />
                         <label className="block text-sm font-medium ml-3" htmlFor="admin">As Admin</label>
                     </span>
                     <span className="flex items-center mt-2">
-                        <input type="radio" name="role" value={"sub-admin"} id="subadmin" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRole(e.target.value)} />
-                        <label className="block text-sm font-medium ml-3" htmlFor="subadmin">As Sub-Admin</label>
+                        <input type="radio" name="role" value={"chef"} id="chef" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRole(e.target.value)} />
+                        <label className="block text-sm font-medium ml-3" htmlFor="chef">As Chef</label>
+                    </span>
+                    <span className="flex items-center mt-2">
+                        <input type="radio" name="role" value={"Receptionist"} id="Receptionist" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRole(e.target.value)} />
+                        <label className="block text-sm font-medium ml-3" htmlFor="Receptionist">As Receptionist</label>
                     </span>
                 </div>
 
@@ -103,6 +105,7 @@ export default function Admin() {
                     Login
                 </button>
             </form>
+            
         </div>
     )
 }
