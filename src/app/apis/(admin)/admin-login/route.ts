@@ -6,7 +6,7 @@ import Employee from '../../lib/employees';
 
 
 export async function POST(req: NextRequest) {
-    try {
+    try { 
         (await ModelConnection());
         const data = await req.json();
         if (data["role"] === "admin") {

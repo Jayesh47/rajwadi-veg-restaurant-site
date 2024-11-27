@@ -10,7 +10,7 @@ export default function AdminDashboard() {
         totalSales: "",
         totalEmp: ""
     });
-
+ 
     const handleAdminDashboard = async () => {
         const token = sessionStorage.getItem('adminToken');
         if (token) {

@@ -2,7 +2,7 @@ import { faMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import Filter from './filter';
-
+ 
 export default function StaffAttaindance() {
     return (
         <section className='p-4 h-[100vh]'>

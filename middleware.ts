@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
         if (!user) {
             return NextResponse.json({ message: "unauthorized" }, { status: 403 });
         }
-
+ 
         const { userId, role } = user as { userId: string; role: string };
 
         if (userId && role === "admin") {

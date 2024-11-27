@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
     try {
         const authHeader = req.headers.get("Authorization");
         const token = authHeader?.split(" ")[1];
-        if (token) {
+        if (token) { 
             const user = verifyToken(token) as JwtPayload;
             if (user["userId"]) {
                 return NextResponse.json({ message: "admin" }, { status: 200 });
